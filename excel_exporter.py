@@ -33,8 +33,10 @@ def export_to_excel(
     # -----------------------------------------------------
 
     excel_rows = []
+    
 
     for row in rows:
+        
 
         warnings = row.get(
             "warnings",
@@ -101,7 +103,15 @@ def export_to_excel(
                     confidence.get(
                         "weight_kg"
                     ),
+                "BOM Crop %":
+                    round(
+                        row.get(
+                            "bom_crop_ratio",
+                            0
+                        ) * 100
+                    ),                    
             }
+            
         )
 
     bom_df = pd.DataFrame(
