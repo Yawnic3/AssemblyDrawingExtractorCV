@@ -20,18 +20,6 @@ The extractor processes each PDF page, detects the BOM table in the upper-left a
 - Show extraction progress and logs in the desktop application
 - Package the application as a Windows executable with PyInstaller
 
-## Example Output
-
-The generated workbook contains a master BOM similar to:
-
-| Page | Assembly | Item | Part Name | Qty | Stock Name | Weight (kg) | Rev |
-|---:|---|---:|---|---:|---|---:|---|
-| 1 | MARCURIUS | 1 | BOTTOM PARTS | 1 | N/A | 378 | |
-| 1 | MARCURIUS | 2 | DECK | 1 | N/A | 286 | |
-| 1 | MARCURIUS | 3 | DRONE LOCKER | 1 | N/A | 42 | |
-| 1 | MARCURIUS | 8 | TRANSOM | 1 | N/A | 42 | |
-
-The workbook also includes an **Extraction Errors** sheet so pages that fail can be reviewed without stopping the entire PDF job.
 
 ## How It Works
 
