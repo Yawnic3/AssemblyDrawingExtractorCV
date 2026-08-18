@@ -1,4 +1,0 @@
-import os
-
-# Avoid PaddleX's network-source probe on each launch.
-os.environ.setdefault("PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK", "True")
