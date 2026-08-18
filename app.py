@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import sys
 import threading
+import tempfile
 import traceback
 from datetime import datetime
 from pathlib import Path
@@ -413,12 +414,18 @@ class BOMExtractorApp(tk.Tk):
         sys.stderr = queue_writer
 
         pipeline = None
+        temp_root = None
         try:
             output_dir.mkdir(parents=True, exist_ok=True)
 
-            pages_dir = output_dir / "debug_pages"
-            if pages_dir.exists():
-                shutil.rmtree(pages_dir)
+            # Keep all intermediate/debug files out of the user's selected
+            # output folder (which may be OneDrive-synced and temporarily locked).
+            # Only the final Excel workbook is written to output_dir.
+            temp_root = Path(
+                tempfile.mkdtemp(prefix="VictoriaMarineBOM_")
+            )
+            pages_dir = temp_root / "debug_pages"
+            pages_dir.mkdir(parents=True, exist_ok=True)
 
             self.event_queue.put(("status", "Loading OCR models..."))
             pipeline = PDFPartsPipeline(
@@ -491,6 +498,15 @@ class BOMExtractorApp(tk.Tk):
                     pipeline.close()
                 except Exception:
                     pass
+
+            # Best-effort cleanup of temporary processing files. Never let
+            # cleanup failure turn a successful extraction into an app error.
+            if temp_root is not None:
+                try:
+                    shutil.rmtree(temp_root, ignore_errors=True)
+                except Exception:
+                    pass
+
             sys.stdout = old_stdout
             sys.stderr = old_stderr
 
