@@ -1,0 +1,44 @@
+# Virtual environments
+.venv/
+.buildvenv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Generated output
+output/
+debug_pages/
+*.xlsx
+*.xls
+*.csv
+
+# Engineering drawings / company files
+input/
+*.pdf
+
+# OCR/model caches
+.paddlex/
+.paddleocr/
+.paddle/
+models/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
